@@ -59,7 +59,6 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     LANGUAGE=en_US.UTF-8 \
     LEIN_HOME=/var/tmp/lein \
     NPM_CONFIG_CACHE=/var/tmp/npm \
-    YARN_CACHE_FOLDER=/var/tmp/yarn \
     GRADLE_USER_HOME=/var/tmp/gradle \
     GEM_HOME=/var/tmp/gem \
     BUNDLE_PATH=/var/tmp/bundle \

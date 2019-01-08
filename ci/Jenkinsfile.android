@@ -6,7 +6,6 @@ pipeline {
       args (
         "-v /var/tmp/npm:/var/tmp/npm:rw "+
         "-v /var/tmp/lain:/var/tmp/lain:rw "+
-        "-v /var/tmp/yarn:/var/tmp/yarn:rw "+
         "-v /home/jenkins/.gradle:/home/jenkins/.gradle:ro"
       )
     }
@@ -41,7 +40,6 @@ pipeline {
     FASTLANE_DISABLE_COLORS = 1
     REALM_DISABLE_ANALYTICS = 1
     NPM_CONFIG_CACHE  = '/var/tmp/npm'
-    YARN_CACHE_FOLDER =' /var/tmp/yarn'
     BUNDLE_PATH       = '/var/tmp/bundle'
     GRADLE_USER_HOME  = '/var/tmp/gradle'
     ANDROID_HOME      = '/usr/lib/android-sdk'
