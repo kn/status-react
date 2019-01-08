@@ -198,6 +198,12 @@
   (when (and platform/android? (string/ends-with? url ".pdf"))
     {:browser/show-web-browser-selection url}))
 
+(fx/defn handle-message-link
+  [cofx link]
+  (if (utils.universal-links/universal-link? link)
+    (utils.universal-links/handle-url cofx link)
+    {:browser/show-browser-selection link}))
+
 (fx/defn update-browser-on-nav-change
   [cofx url error?]
   (let [browser (get-current-browser (:db cofx))
@@ -209,6 +215,7 @@
         (fx/merge cofx
                   (update-browser-history browser resolved-url)
                   (handle-pdf url)
+                  (handle-message-link url)
                   (resolve-url {:error? error? :resolved-url (when resolved-ens url)}))))))
 
 (fx/defn update-browser-name
@@ -334,12 +341,6 @@
 
       (= type constants/api-request)
       (browser.permissions/process-permission cofx dapp-name permission messageId params))))
-
-(fx/defn handle-message-link
-  [cofx link]
-  (if (utils.universal-links/universal-link? link)
-    (utils.universal-links/handle-url cofx link)
-    {:browser/show-browser-selection link}))
 
 (defn filter-letters-numbers-and-replace-dot-on-dash [value]
   (let [cc (.charCodeAt value 0)]
