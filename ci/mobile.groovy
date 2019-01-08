@@ -50,8 +50,6 @@ def prep(type = 'nightly') {
   }
   /* install ruby dependencies */
   sh 'bundle install --quiet'
-  /* to avoid colissions */
-  sh 'yarn cache clean'
   /* node deps and status-go download */
   sh "make prepare-${env.BUILD_PLATFORM}"
   /* generate ios/StatusIm.xcworkspace */
