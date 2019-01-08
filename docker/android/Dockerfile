@@ -52,7 +52,7 @@ RUN add-apt-repository -y ppa:cwchien/gradle \
       apt-get -q -y --no-install-recommends install \
         gradle ruby ruby-dev ruby-bundler \
  && locale-gen ${LANG} \
- && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/man
+ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/man \
  && gem install cocoapods bundler fastlane fastlane-plugin-diawi fastlane-plugin-clean_testflight_testers CFPropertyList
 
 # Install Android SDK & NDK

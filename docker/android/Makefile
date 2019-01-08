@@ -42,11 +42,14 @@ $(ANDROID_SDK_ARCHIVE):
 	echo "$(ANDROID_SDK_CHECKSUM)  $(ANDROID_SDK_ARCHIVE)" | md5sum --check
 
 test: ## Run build inside the image as a test
-	docker run --name android-test --rm \
+	docker run -u 1001:1002 \
+        --name android-test --rm \
 		-v /var/tmp/npm:/var/tmp/npm:rw \
 		-v /var/tmp/lein:/var/tmp/lein:rw \
 		-v /var/tmp/yarn:/var/tmp/yarn:rw \
+        -v /var/tmp/gradle:/home/jenkins/.gradle/caches:rw \
 		-v $(GIT_ROOT):/repo:rw \
+		-v $$HOME/.gradle:/home/jenkins/.gradle:rw \
 		-w /repo $(IMAGE_NAME) \
 		docker/android/build.sh
 

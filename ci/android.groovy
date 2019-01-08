@@ -7,7 +7,20 @@ def bundle(type = 'nightly') {
     gradleOpt += "-PreleaseVersion='${cmn.version()}'"
   }
   dir('android') {
-    sh "./gradlew assembleRelease ${gradleOpt}"
+    withCredentials([
+      string(
+        credentialsId: 'android-keystore-pass',
+        variable: 'STATUS_RELEASE_STORE_PASSWORD'
+      ),
+      usernamePassword(
+        credentialsId: 'android-keystore-key-pass',
+        usernameVariable: 'STATUS_RELEASE_KEY_ALIAS',
+        passwordVariable: 'STATUS_RELEASE_KEY_PASSWORD'
+      )
+    ]) {
+      sh 'env'
+      sh "./gradlew assembleRelease ${gradleOpt}"
+    }
   }
   def pkg = cmn.pkgFilename(type, 'apk')
   sh "cp android/app/build/outputs/apk/release/app-release.apk ${pkg}"
